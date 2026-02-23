@@ -5,7 +5,7 @@ import ForMyProjectPages.AutoCompletePage;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class AutoCompleteFormFields extends BaseFormy {
+public class autoCompleteFormFields extends BaseFormy {
     @Test
     public void testAutocompleteFormFields(){
         AutoCompletePage page = homePage.clickAutoComplete();

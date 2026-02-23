@@ -4,7 +4,7 @@ import Base.BaseFormy;
 import ForMyProjectPages.CheckBox;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-public class IndexEquals extends BaseFormy {
+public class indexEquals extends BaseFormy {
 
     @Test
     public void radioButtonIndexEquals(){

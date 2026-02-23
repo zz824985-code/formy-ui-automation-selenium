@@ -14,15 +14,14 @@ import java.util.List;
 import java.util.Random;
 
 public class CompleteWebForm extends BasePage{
-    private By firstNameField = By.id("first-name");
-    private By lastNameField = By.id("last-name");
-    private By jobTitleField = By.id("job-title");
-    private By eduButton = By.cssSelector("input[type='radio'][id^='radio-button-']");
-    private By sexCheckBox = By.cssSelector("input[type='checkbox'][id^='checkbox-'");
-    private By experienceDropdown = By.id("select-menu");
-    private final Random random = new Random();
-    private By datePickerField = By.id("datepicker");
-    private By submitButton = By.cssSelector("a[href='/thanks']");
+    private final By firstNameField = By.id("first-name");
+    private final By lastNameField = By.id("last-name");
+    private final By jobTitleField = By.id("job-title");
+    private final By eduButton = By.cssSelector("input[type='radio'][id^='radio-button-']");
+    private final By sexCheckBox = By.cssSelector("input[type='checkbox'][id^='checkbox-'");
+    private final By experienceDropdown = By.id("select-menu");
+    private final By datePickerField = By.id("datepicker");
+    private final By submitButton = By.cssSelector("a[href='/thanks']");
 
     public CompleteWebForm(WebDriver driver){super(driver);
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField));
@@ -38,7 +37,7 @@ public class CompleteWebForm extends BasePage{
         List<WebElement> options = findMany(eduButton);
         int option = randomIndex(options.size());
         System.out.println("Education option: " + option);
-        options.get(option).click();;}
+        options.get(option).click();}
     public void clickCheckBox(){
         List<WebElement> options = findMany(sexCheckBox);
         int option = randomIndex(options.size());

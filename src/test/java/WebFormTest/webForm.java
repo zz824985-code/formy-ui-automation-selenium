@@ -5,7 +5,7 @@ import ForMyProjectPages.SuccessPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class WebForm extends BaseFormy {
+public class webForm extends BaseFormy {
     @Test
     public void testSuccessfulCompletion(){
         System.out.println(driver.getCurrentUrl());
