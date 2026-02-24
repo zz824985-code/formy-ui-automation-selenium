@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class DragAndDropPage extends BasePage {
     private final By image = By.id("image");
@@ -13,16 +12,22 @@ public class DragAndDropPage extends BasePage {
 
     public DragAndDropPage(WebDriver driver){
         super(driver);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(image));
+        waitVisible(image);
     }
-    public void clickAndDropImage(){
+    public void dragImageToBox(){
         WebElement dropImage = find(image);
         WebElement dropBox = find(box);
 
         Actions action = new Actions(driver);
-        action.dragAndDrop(dropImage, dropBox).build().perform();
+        action
+                .clickAndHold(dropImage)
+                .moveToElement(dropBox, 10, 10)
+                .release()
+                .build()
+                .perform();
     }
     public String getDroppedMessage(){
-        return find(box).getText().trim();}
+
+        return waitVisible(box).getText().trim();}
 
 }
