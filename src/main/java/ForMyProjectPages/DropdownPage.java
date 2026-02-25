@@ -2,13 +2,12 @@ package ForMyProjectPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class DropdownPage extends BasePage{
     private final By dropdown = By.id("dropdownMenuButton");
-    private final By dropdownItemAutocomplete = By.cssSelector("a[href='/autocomplete']");
+    private final By dropdownItemAutocomplete = By.id("autocomplete");
     private final By dropdownItemButtons = By.cssSelector("a[href='/buttons']");
     private final By dropdownItemCheckBox = By.cssSelector("a[href='/checkbox']");
     private final By dropdownItemDatepicker = By.cssSelector("a[href='/datepicker']");
@@ -22,10 +21,11 @@ public class DropdownPage extends BasePage{
     private final By dropdownItemPageScroll = By.cssSelector("a[href='/scroll']");
     private final By dropdownItemRadioButton = By.cssSelector("a[href='/radiobutton']");
     private final By dropdownItemSwitchWindow = By.cssSelector("a[href='/switch-window']");
-    private final By dropdownItemWebForm = By.cssSelector("a[href='/form']");
+    private final By dropdownItemWebForm = By.cssSelector(".dropdown-menu.show a[href='/form']");
 
     public DropdownPage(WebDriver driver){
         super(driver);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dropdown));
     }
 
     public void selectFromDropdown(){click(dropdown);}
