@@ -20,6 +20,14 @@ public class HomePage extends BasePage {
         clickPageLink("Checkbox");
         return new CheckBox(driver);
     }
+    public DragAndDropPage clickDragAndDrop(){
+        clickPageLink("Drag and Drop");
+        return new DragAndDropPage(driver);
+    }
+    public DropdownPage clickDropdownPage(){
+        clickPageLink("Dropdown");
+        return new DropdownPage(driver);
+    }
 
 
 
