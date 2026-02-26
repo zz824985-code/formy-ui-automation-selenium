@@ -28,6 +28,10 @@ public class HomePage extends BasePage {
         clickPageLink("Dropdown");
         return new DropdownPage(driver);
     }
+    public Enabled clickEnabled(){
+        clickPageLink("Enabled and disabled elements");
+        return new Enabled(driver);
+    }
 
 
 
