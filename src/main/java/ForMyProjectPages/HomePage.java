@@ -32,6 +32,10 @@ public class HomePage extends BasePage {
         clickPageLink("Enabled and disabled elements");
         return new Enabled(driver);
     }
+    public FileUpload clickFileUpload(){
+        clickPageLink("File Upload");
+        return new FileUpload(driver);
+    }
 
 
 
