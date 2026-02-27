@@ -40,6 +40,10 @@ public class HomePage extends BasePage {
         clickPageLink("Key and Mouse Press");
         return new KeyAndMouse(driver);
     }
+    public Modal clickModal(){
+        clickPageLink("Modal");
+        return new Modal(driver);
+    }
 
 
 
