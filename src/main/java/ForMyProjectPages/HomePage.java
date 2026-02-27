@@ -36,6 +36,10 @@ public class HomePage extends BasePage {
         clickPageLink("File Upload");
         return new FileUpload(driver);
     }
+    public KeyAndMouse clickKeyAndMouse(){
+        clickPageLink("Key and Mouse Press");
+        return new KeyAndMouse(driver);
+    }
 
 
 
