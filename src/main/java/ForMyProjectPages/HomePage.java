@@ -28,6 +28,26 @@ public class HomePage extends BasePage {
         clickPageLink("Dropdown");
         return new DropdownPage(driver);
     }
+    public Enabled clickEnabled(){
+        clickPageLink("Enabled and disabled elements");
+        return new Enabled(driver);
+    }
+    public FileUpload clickFileUpload(){
+        clickPageLink("File Upload");
+        return new FileUpload(driver);
+    }
+    public KeyAndMouse clickKeyAndMouse(){
+        clickPageLink("Key and Mouse Press");
+        return new KeyAndMouse(driver);
+    }
+    public Modal clickModal(){
+        clickPageLink("Modal");
+        return new Modal(driver);
+    }
+    public PageScroll clickPageScroll(){
+        clickPageLink("Page Scroll");
+        return new PageScroll(driver);
+    }
 
 
 

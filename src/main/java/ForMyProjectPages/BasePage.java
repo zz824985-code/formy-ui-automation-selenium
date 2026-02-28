@@ -44,6 +44,10 @@ public class BasePage {
         element.clear();
         element.sendKeys(text);
     }
+    protected void uploadFile(By locator, String absolutePath){
+        WebElement fileInput = waitVisible(locator);
+        fileInput.sendKeys(absolutePath);
+    }
     protected int randomIndex(int size){return random.nextInt(size);}
     protected String getInputValue(By locator){
         WebElement element = waitVisible(locator);
