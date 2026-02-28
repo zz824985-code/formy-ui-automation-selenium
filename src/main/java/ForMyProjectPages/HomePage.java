@@ -44,6 +44,10 @@ public class HomePage extends BasePage {
         clickPageLink("Modal");
         return new Modal(driver);
     }
+    public PageScroll clickPageScroll(){
+        clickPageLink("Page Scroll");
+        return new PageScroll(driver);
+    }
 
 
 
