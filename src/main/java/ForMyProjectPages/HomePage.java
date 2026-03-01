@@ -52,6 +52,10 @@ public class HomePage extends BasePage {
         clickPageLink("Radio Button");
         return new RadioButton(driver);
     }
+    public SwitchWindow clickSwitchWindow(){
+        clickPageLink("Switch Window");
+        return new SwitchWindow(driver);
+    }
 
 
 
