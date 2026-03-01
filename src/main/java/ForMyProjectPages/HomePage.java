@@ -48,6 +48,14 @@ public class HomePage extends BasePage {
         clickPageLink("Page Scroll");
         return new PageScroll(driver);
     }
+    public RadioButton clickRadioButton(){
+        clickPageLink("Radio Button");
+        return new RadioButton(driver);
+    }
+    public SwitchWindow clickSwitchWindow(){
+        clickPageLink("Switch Window");
+        return new SwitchWindow(driver);
+    }
 
 
 
