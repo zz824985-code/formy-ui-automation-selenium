@@ -1,6 +1,7 @@
 # Formy UI Automation (Java + Selenium)
-This is my first UI autotesting project on a website https://formy-project.herokuapp.com/
-
+Small UI test framework for the Formy demo website.
+Uses Page Object pattern, JUnit 5 and Selenium 4.
+Covers navigation and interactions for most components: forms, buttons, drag-and-drop, modals, alerts, multi-window, etc.
 ---
 
 # Tech Stack 
@@ -23,28 +24,33 @@ This is my first UI autotesting project on a website https://formy-project.herok
 ---
 
 #Project Structure
+
+```text
 src
-├── main
-│   └── java
-│       └── ForMyProjectPages
-│           ├── BasePage.java          # Common WebDriver helpers
-│           ├── HomePage.java          # Entry point, navigation to components
-│           ├── CompleteWebForm.java   # Full form page
-│           ├── AutoCompletePage.java  # Address autocomplete fields
-│           ├── Buttons.java           # Various buttons + nested dropdown
-│           ├── CheckBox.java          # Random checkbox selection
-│           └── SuccessPage.java       # “Thanks” page after form submit
-│
-└── test
-└── java
-├── Base
-│   └── BaseFormy.java         # Base test: driver setup / teardown, homePage
-├── WebFormTest                # Tests for CompleteWebForm
-├── AutoCompleteTests          # URL + field-value tests for autocomplete
-├── ButtonsTests               # Visibility / clickability / dropdown tests
-└── CheckBoxTests              # Random checkbox index & state tests
+ └── main
+     └── java
+         └── ForMyProjectPages
+             ├── BasePage.java         # Common WebDriver helpers
+             ├── HomePage.java         # Entry point, navigation
+             ├── CompleteWebForm.java  # Full form page
+             ├── AutoCompletePage.java # Address autocomplete
+             ├── Buttons.java          # Various buttons + nested dropdown
+             ├── CheckBox.java         # Random checkbox selection
+             └── SuccessPage.java      # "Thanks" page
+
+test
+ └── java
+     ├── Base
+     │   └── BaseFormy.java            # Driver setup / teardown, homePage
+     └── ...
+     ├── WebFormTest                # Tests for CompleteWebForm
+     ├── AutoCompleteTests          # URL + field-value tests for autocomplete
+     ├── ButtonsTests               # Visibility / clickability / dropdown tests
+     └── CheckBoxTests              # Random checkbox index & state tests
 
 > Folder / class names may change slightly as the project will continue to grow.
+ 
+```
 
 ---
 
@@ -91,22 +97,90 @@ All test classes extend 'BaseFormy', which:
 
 ### Current test coverage 
 
-**Complete Web Form**
+- HomePage
+  - Used as an entry point for all tests.
+  - Navigation methods (`clickCompleteWebForm()`, clickAutoComplete(), clickButtons(), etc.) are exercised across the whole suite.
 
-- Filling all fields with valid data
-- Submitting the form and verifying navigation to the success page
+- CompleteWebForm
+  - Fills all fields with valid data (name, email, date, radio, checkboxes, select, etc.).
+  - Submits the form and verifies navigation to SuccessPage.
+  - Uses getters to assert that the data shown in inputs matches what test code entered.
 
-**Autocomplete**
+- AutoCompletePage
+  - Types address into the autocomplete field.
+  - Verifies that city / state / zip fields are populated with expected values.
+  - Asserts that browser URL contains /autocomplete.
 
-- URL check after navigation to '/autocomplete'
-- Field-level assertions using getter to verify that entered data is actually present in inputs
+- Buttons
+  - Verifies visibility and clickability of the main buttons.
+  - Checks left / middle / right button behavior.
+  - Opens the nested dropdown and validates that options are present.
 
-**Buttons**
+- CheckBox
+  - Selects a random checkbox by index from the list.
+  - Returns this index to the test and asserts that the checkbox with this index is selected.
+  - Covers both state (`isSelected`) and index consistency.
 
-- Navigates to the checkbox page
-- Clicks a random checkbox
-- Asserts that the checkbox with the returned index is selected
+- Datepicker
+  - Opens the datepicker widget and selects a date.
+  - Asserts that the input contains the expected formatted date value.
+  - Optionally covers clearing / re-entering a new date (depending on test implementation).
 
+- DragAndDropPage
+  - Performs drag-and-drop between two blocks on the page.
+  - Asserts that their labels/text are swapped after the operation.
+  - Uses a more reliable drag-and-drop approach instead of the flaky default one.
+
+- DropdownPage
+  - Opens the top dropdown menu and clicks items by locator.
+  - Each click returns a specific Page Object (`AutoCompletePage`, Buttons, CompleteWebForm, etc.).
+  - Example scenario: navigate via dropdown to CompleteWebForm and complete a full form submission flow.
+
+- Enabled (Enabled and Disabled Elements)
+  - Types into the enabled input and verifies that the value is stored.
+  - Asserts that the disabled input is present but not editable.
+  - Optionally checks that disabled input has the expected disabled attribute.
+
+- FileUpload
+  - Verifies that the "Choose a file…" textbox is visible.
+  - Checks that the Reset button is visible and clickable.
+  - Confirms that the URL contains /fileupload.
+  - (No real file upload is performed because the page exposes only a type="text" input.)
+
+- FileDownload (broken link from dropdown)
+  - Navigates to the page via dropdown item.
+  - Asserts that the error message “The page you were looking for doesn't exist.” is displayed.
+  - Verifies that the application shows a proper error state instead of a blank page.
+
+- KeyAndMouse (Keyboard and Mouse Input)
+  - Types a full name into the input field.
+  - Uses a getter to assert that the typed name is present in the textbox.
+  - Clicks Submit and verifies that the textbox is cleared afterwards.
+
+- Modal
+  - Opens the modal dialog via the main button.
+  - Reads and verifies the modal body text (e.g. “Some text here”).
+  - Closes the modal using the “X” and/or “Close” button and asserts that the header is no longer visible.
+
+- PageScroll
+  - Scrolls the long page until the form fields become visible.
+  - Fills in the Full Name field.
+  - Inserts today’s date in the Date field using a `LocalDate`-based formatter.
+  - Asserts that both fields contain the expected values.
+
+- RadioButton
+  - Selects a radio button by a fixed index and verifies that it is selected.
+  - Selects a random radio button using a helper method and asserts that the returned index is actually checked.
+  - Ensures only one option in the group is active.
+
+- SuccessPage
+  - Verifies that the success message is displayed after form submission.
+  - Asserts that the message text matches the expected “form was successfully submitted” copy.
+
+- SwitchWindow
+  - Clicks “Open new tab”, switches to the new tab and verifies that the URL points to the Formy homepage.
+  - Switches back to the original tab and asserts that the URL is /switch-window.
+  - Clicks “Open alert”, reads the alert text (e.g. “This is a test alert!”) and accepts the alert.
 ---
 
 ## How to Run the Tests
